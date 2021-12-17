@@ -1,0 +1,30 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+# Set baud rate to 115200
+BOARD=`cat /sys/firmware/devicetree/base/model`
+
+if [ "$BOARD" = "iEi Puzzle-M902" ]
+then
+bash /etc/rename.sh
+fi
+
+if [ "$BOARD" = "iEi Puzzle-M902" ] || [ "$BOARD" = "iEi Puzzle-M901" ]
+then
+stty -F /dev/ttyS1 115200
+# LED4 ON
+echo -n -e "\x40\x52\x33\x30\x11" > /dev/ttyS1
+# Fan full speed
+echo -n -e "\x40\x46\x57\x30\xFF\x9E" > /dev/ttyS1
+# BUZZER 1.5s
+echo -n -e "\x40\x43\x33\x30" > /dev/ttyS1
+
+sleep 1
+# LED3 ON
+echo -n -e "\x40\x52\x32\x30\x10" > /dev/ttyS1
+
+bash /etc/openvpn_status.sh &
+bash /etc/wan_status.sh &
+bash /etc/resetkey.sh &
+fi
+
+exit 0
