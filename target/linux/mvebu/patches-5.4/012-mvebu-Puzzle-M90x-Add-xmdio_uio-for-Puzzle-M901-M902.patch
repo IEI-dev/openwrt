@@ -1,0 +1,211 @@
+From d4b6dbfcef0c2b70d1dc9ccaa7f47ed60df5d740 Mon Sep 17 00:00:00 2001
+From: Ian Chang <ianchang@ieiworld.com>
+Date: Mon, 20 Dec 2021 00:38:44 +0800
+Subject: [PATCH] mvebu: Puzzle-M90x Add xmdio_uio for Puzzle-M901/M902
+
+Signed-off-by: Ian Chang <ianchang@ieiworld.com>
+---
+ arch/arm64/boot/dts/marvell/cn9131-puzzle-m901.dts   | 26 +++++++++++----
+ arch/arm64/boot/dts/marvell/cn9132-puzzle-m902.dts   | 33 +++++++++++++++----
+ 2 files changed, 47 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/marvell/cn9131-puzzle-m901.dts b/arch/arm64/boot/dts/marvell/cn9131-puzzle-m901.dts
+index 58e749490a..14a0d3302d 100644
+--- a/arch/arm64/boot/dts/marvell/cn9131-puzzle-m901.dts
++++ b/arch/arm64/boot/dts/marvell/cn9131-puzzle-m901.dts
+@@ -76,6 +76,10 @@
+ 	};
+ };
+ 
++&cp0_xmdio_uio {
++	status = "okay";
++};
++
+ &cp0_ethernet {
+ 	status = "okay";
+ };
+@@ -83,22 +87,25 @@
+ /* SLM-1521-V2, CON9 */
+ &cp0_eth0 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp0_comphy2 0>;
++	phy = <&cp0_nbaset_phy0>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp0_eth1 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp0_comphy4 1>;
++	phy = <&cp0_nbaset_phy1>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp0_eth2 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp0_comphy5 2>;
++	phy = <&cp0_nbaset_phy2>;
+ 	managed = "in-band-status";
+ };
+ 
+@@ -241,6 +248,10 @@
+ 	};
+ };
+ 
++&cp1_xmdio_uio {
++	status = "okay";
++};
++
+ &cp1_ethernet {
+ 	status = "okay";
+ };
+@@ -248,22 +259,25 @@
+ /* CON50 */
+ &cp1_eth0 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp1_comphy2 0>;
++	phy = <&cp1_nbaset_phy0>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp1_eth1 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp1_comphy4 1>;
++	phy = <&cp1_nbaset_phy1>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp1_eth2 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp1_comphy5 2>;
++	phy = <&cp1_nbaset_phy2>;
+ 	managed = "in-band-status";
+ };
+ 
+diff --git a/arch/arm64/boot/dts/marvell/cn9132-puzzle-m902.dts b/arch/arm64/boot/dts/marvell/cn9132-puzzle-m902.dts
+index dc4e6527f1..c91e447297 100644
+--- a/arch/arm64/boot/dts/marvell/cn9132-puzzle-m902.dts
++++ b/arch/arm64/boot/dts/marvell/cn9132-puzzle-m902.dts
+@@ -122,6 +122,10 @@
+ 	};
+ };
+ 
++&cp0_xmdio_uio {
++	status = "okay";
++};
++
+ &cp0_ethernet {
+ 	status = "okay";
+ };
+@@ -131,20 +135,23 @@
+ 	status = "okay";
+ 	phy-mode = "10gbase-kr";
+ 	phys = <&cp0_comphy2 0>;
++	phy = <&cp0_nbaset_phy0>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp0_eth1 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp0_comphy4 1>;
++	phy = <&cp0_nbaset_phy1>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp0_eth2 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp0_comphy1 2>;
++	phy = <&cp0_nbaset_phy2>;
+ 	managed = "in-band-status";
+ };
+ 
+@@ -305,6 +312,10 @@
+ 	};
+ };
+ 
++&cp1_xmdio_uio {
++	status = "okay";
++};
++
+ &cp1_ethernet {
+ 	status = "okay";
+ };
+@@ -314,20 +325,23 @@
+ 	status = "okay";
+ 	phy-mode = "10gbase-kr";
+ 	phys = <&cp1_comphy2 0>;
++	phy = <&cp1_nbaset_phy0>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp1_eth1 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp1_comphy4 1>;
++	phy = <&cp1_nbaset_phy1>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp1_eth2 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp1_comphy1 2>;
++	phy = <&cp1_nbaset_phy2>;
+ 	managed = "in-band-status";
+ };
+ 
+@@ -410,25 +424,32 @@
+ 	};
+ };
+ 
++&cp2_xmdio_uio {
++	status = "okay";
++};
++
+ /* SLM-1521-V2, CON9 */
+ &cp2_eth0 {
+ 	status = "okay";
+ 	phy-mode = "10gbase-kr";
+ 	phys = <&cp2_comphy2 0>;
++	phy = <&cp2_nbaset_phy0>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp2_eth1 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp2_comphy4 1>;
++	phy = <&cp2_nbaset_phy1>;
+ 	managed = "in-band-status";
+ };
+ 
+ &cp2_eth2 {
+ 	status = "okay";
+-	phy-mode = "2500base-x";
++	phy-mode = "2500base-t";
+ 	phys = <&cp2_comphy1 2>;
++	phy = <&cp2_nbaset_phy2>;
+ 	managed = "in-band-status";
+ };
+ 
+-- 
+2.17.1
+
